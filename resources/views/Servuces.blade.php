@@ -4,6 +4,7 @@
     <div class="row">
     <div class="col-md-12 p-5">
       <button id="addNewBtnId" class="btn my-3 btn-sm btn-danger">Add New </button>
+      {{-- <button id="" class="btn my-3 btn-sm btn-danger">Edit New </button> --}}
 
         <table class="table table-striped table-bordered d-none" id='mainDiv' cellspacing="0" width="100%">
             <thead>
@@ -49,7 +50,7 @@
     <div class="modal-content">
       <div class="modal-body p-5 text-center">
           <div id="serviceAddForm" class=" w-100">
-          <h6 class="mb-4">Add New Service</h6>  
+         <h6 class="mb-4">Add New Service</h6>  
           <input id="serviceNameAddID" type="text" id="" class="form-control mb-4" placeholder="Service Name">
           <input id="serviceDesAddID" type="text" id="" class="form-control mb-4" placeholder="Service Description">
           <input id="serviceImgAddID" type="text" id="" class="form-control mb-4" placeholder="Service Image Link">
@@ -62,6 +63,28 @@
     </div>
   </div>
 </div>
+    <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body p-5 text-center">
+          <div id="serviceAddForm" class=" w-100">
+         <h6 class="mb-4">Add edit Service</h6>  
+          <input id="serviceNameAddID" type="text" id="" class="form-control mb-4" placeholder="Service Name">
+          <input id="serviceDesAddID" type="text" id="" class="form-control mb-4" placeholder="Service Description">
+          <input id="serviceImgAddID" type="text" id="" class="form-control mb-4" placeholder="Service Image Link">
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Cancel</button>
+        <button  id="serviceAddConfirmBtn" type="button" class="btn  btn-sm  btn-danger">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
     @endsection
 @section('scripts')
     <script>
@@ -80,7 +103,7 @@
                         "<td><img class='table-img' src=" + jsonData[i].service_img + "></td>" +
                         "<td>" + jsonData[i].service_name + "</td>" +
                         "<td>" + jsonData[i].service_des + "</td>" +
-                        "<td><a  class='serviceEditBtn' data-id=" + jsonData[i].id + "><i class='fas fa-edit'></i></a></td>" +
+                        "<td id='addEditbtn'><a  class='serviceEditBtn'  data-id=" + jsonData[i].id + "><i class='fas fa-edit'></i></a></td>" +
                         "<td><a  class='serviceDeleteBtn'  data-id=" + jsonData[i].id +" ><i class='fas fa-trash-alt'></i></a></td>"
                     ).appendTo('#service_table');
                 });
@@ -91,6 +114,10 @@
                     $('#deleteModal').modal('show');
 
                 })
+                $('.serviceEditBtn').click(function(){
+                  $('#EditModal').modal('show');
+});
+
          }
 
         })
@@ -106,7 +133,6 @@ $('#serviceDeleteConfirmBtn').click(function() {
     var id = $('#serviceDeleteId').html();
         ServiceDelete(id);
       })
-      
       function ServiceDelete(deleteID){
         $('#serviceDeleteConfirmBtn').html("<div class='spinner-border spinner-border-sm' role='status'></div>") 
         axios.post('/deleteServices', {
@@ -118,9 +144,6 @@ $('#serviceDeleteConfirmBtn').click(function() {
             if (response.data == 1) {
                 $('#deleteModal').modal('hide');
                 toastr.success('Delete Success');
-
-               
-
                 getdata();
             } else {
                 $('#deleteModal').modal('hide');
@@ -138,12 +161,18 @@ $('#serviceDeleteConfirmBtn').click(function() {
         .catch(function(error) {
              $('#deleteModal').modal('hide');
              toastr.error('Something Went Wrong !');
-        });
+         });
 
 }
 $('#addNewBtnId').click(function(){
    $('#addModal').modal('show');
 });
+
+
+
+// Services Table Edit Icon Click
+
+               
 // Services Edit Modal Save Btn
 $('#serviceAddConfirmBtn').click(function() {
     var name = $('#serviceNameAddID').val();
@@ -194,5 +223,7 @@ function ServiceAdd(serviceName,serviceDes,serviceImg){
 
 }
 }
+
+
     </script>
 @endsection
