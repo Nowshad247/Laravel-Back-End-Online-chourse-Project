@@ -36,6 +36,27 @@ class ServicesController extends Controller
      else{
       return 0;
      }
-
+    }
+    function ServiceDetails(request $req){
+        $id = $req->input('id');
+        $result= json_encode(ServiceModel::where('id','=',$id)->get());
+        if($result==true){
+            return $result;
+        }else{
+            return 0 ;
+        }
+    }
+    function ServiceUpdate(request $req){
+        $id= $req->input('id');
+        $name= $req->input('name');
+        $des= $req->input('des');
+        $img= $req->input('img');
+        $result= ServiceModel::where('id','=',$id)->update(['service_name'=>$name,'service_des'=>$des,'service_img'=>$img]);
+        if($result==true){      
+          return 1;
+        }
+        else{
+         return 0;
+        }
     }
 }
