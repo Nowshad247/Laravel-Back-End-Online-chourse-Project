@@ -30,3 +30,6 @@ Route::post('/ServiceUpdate',[ServicesController::class, 'ServiceUpdate']);
 Route::get('/CoursesAdmin',[CoursesController::class, 'HomeIndex']);
 Route::get('/CoursesList',[CoursesController::class, 'getCoursesData']);
 Route::post('/ChourseDelete',[CoursesController::class, 'ChourseDelete']);
+Route::post('/CourseAdd',[CoursesController::class, 'CourseAdd']);
+Route::post('/CourseDetails',[CoursesController::class, 'CourseDetails']);
+Route::post('/CoursesUpdate',[CoursesController::class, 'CoursesUpdate']);

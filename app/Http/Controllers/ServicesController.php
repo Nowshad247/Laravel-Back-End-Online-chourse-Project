@@ -52,7 +52,7 @@ class ServicesController extends Controller
         $des= $req->input('des');
         $img= $req->input('img');
         $result= ServiceModel::where('id','=',$id)->update(['service_name'=>$name,'service_des'=>$des,'service_img'=>$img]);
-        if($result==true){      
+        if($result == true){      
           return 1;
         }
         else{

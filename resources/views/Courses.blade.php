@@ -51,9 +51,21 @@
       <div class="modal-body p-5 text-center">
           <div id="serviceAddForm" class=" w-100">
          <h6 class="mb-4">Add New Service</h6>  
-          <input id="serviceNameAddID" type="text" id="" class="form-control mb-4" placeholder="Service Name">
-          <input id="serviceDesAddID" type="text" id="" class="form-control mb-4" placeholder="Service Description">
-          <input id="serviceImgAddID" type="text" id="" class="form-control mb-4" placeholder="Service Image Link">
+         <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+                <input id="CourseNameId" type="text" id="" class="form-control mb-3" placeholder="Course Name">
+                <input id="CourseDesId" type="text" id="" class="form-control mb-3" placeholder="Course Description">
+            <input id="CourseFeeId" type="text" id="" class="form-control mb-3" placeholder="Course Fee">
+            <input id="CourseEnrollId" type="text" id="" class="form-control mb-3" placeholder="Total Enroll">
+            </div>
+            <div class="col-md-6">
+            <input id="CourseClassId" type="text" id="" class="form-control mb-3" placeholder="Total Class">      
+            <input id="CourseLinkId" type="text" id="" class="form-control mb-3" placeholder="Course Link">
+            <input id="CourseImgId" type="text" id="" class="form-control mb-3" placeholder="Course Image">
+            </div>
+          </div>
+        </div>
           </div>
       </div>
       <div class="modal-footer">
@@ -74,19 +86,29 @@ aria-hidden="true">
       </button>
     </div>
     <div class="modal-body p-4 text-center">
-        <h5 id="serviceEditId" class="mt-4 d-none">   </h5>
-        <div id="serviceEditForm" class="d-none w-100">
-        <input id="serviceNameID" type="text" id="" class="form-control mb-4" placeholder="Service Name">
-        <input id="serviceDesID" type="text" id="" class="form-control mb-4" placeholder="Service Description">
-        <input id="serviceImgID" type="text" id="" class="form-control mb-4" placeholder="Service Image Link">
+      <h5 id="courseEditId" class="mt-4 d-none">  </h5>
+      <div id="courseEditForm" class="container d-none">
+          <div class="row">
+            <div class="col-md-6">
+            <input id="CourseNameUpdateId" type="text" id="" class="form-control mb-3" placeholder="Course Name">
+            <input id="CourseDesUpdateId" type="text" id="" class="form-control mb-3" placeholder="Course Description">
+            <input id="CourseFeeUpdateId" type="text" id="" class="form-control mb-3" placeholder="Course Fee">
+            <input id="CourseEnrollUpdateId" type="text" id="" class="form-control mb-3" placeholder="Total Enroll">
+            </div>
+            <div class="col-md-6">
+            <input id="CourseClassUpdateId" type="text" id="" class="form-control mb-3" placeholder="Total Class">      
+            <input id="CourseLinkUpdateId" type="text" id="" class="form-control mb-3" placeholder="Course Link">
+            <input id="CourseImgUpdateId" type="text" id="" class="form-control mb-3" placeholder="Course Image">
+            </div>
+          </div>
         </div>
 
-        <img id="serviceEditLoader" class="loading-icon m-5" src="{{asset('images/loding.gif')}}">
-        <h5 id="serviceEditWrong" class="d-none">Something Went Wrong !</h5>
+        <img id="courseEditLoader" class="loading-icon m-5" src="{{asset('images/loding.gif')}}">
+        <h5 id="courseEditWrong" class="d-none">Something Went Wrong !</h5>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Cancel</button>
-      <button  id="serviceEditConfirmBtn" type="button" class="btn  btn-sm  btn-danger">Save</button>
+      <button  id="CourseUpdateConfirmBtn" type="button" class="btn  btn-sm  btn-danger">Save</button>
     </div>
   </div>
 </div>
@@ -125,10 +147,10 @@ aria-hidden="true">
                     $('#deleteModal').modal('show');
 
                 })
-                $('.serviceEditBtn').click(function(){
+                $('.courseEditBtn').click(function(){
                   var id = $(this).data('id');
                     $('#serviceEditId').html(id);
-                    ServiceUpdateDetails(id);
+                    CourseUpdateDetails(id);
                   $('#EditModal').modal('show');
 });
 
@@ -185,18 +207,23 @@ $('#addNewBtnId').click(function(){
 
 
 // Services Table Edit Icon Click
-function ServiceUpdateDetails(detailsID) {
-    axios.post('/ServiceDetails', {
+function CourseUpdateDetails(detailsID) {
+    axios.post('/CourseDetails', {
             id: detailsID
         })
         .then(function(response) {
+          console.log(response);
                 if(response.status==200){
-                    $('#serviceEditForm').removeClass('d-none');
-                    $('#serviceEditLoader').addClass('d-none');
-                    var jsonData = response.data;
-                    $('#serviceNameID').val(jsonData[0].service_name);
-                    $('#serviceDesID').val(jsonData[0].service_des);
-                    $('#serviceImgID').val(jsonData[0].service_img);
+                  $('#courseEditForm').removeClass('d-none');
+                        $('#courseEditLoader').addClass('d-none');    
+                        var jsonData = response.data;
+                        $('#CourseNameUpdateId').val(jsonData[0].course_name);
+                        $('#CourseDesUpdateId').val(jsonData[0].course_des);
+                        $('#CourseFeeUpdateId').val(jsonData[0].course_fee);
+                        $('#CourseEnrollUpdateId').val(jsonData[0].course_totalenroll);
+                        $('#CourseClassUpdateId').val(jsonData[0].course_totalclass);
+                        $('#CourseLinkUpdateId').val(jsonData[0].course_link);
+                        $('#CourseImgUpdateId').val(jsonData[0].course_img);
                 }
                 else{
                    $('#serviceEditLoader').addClass('d-none');
@@ -212,27 +239,47 @@ function ServiceUpdateDetails(detailsID) {
                
 // Services Edit Modal Save Btn
 $('#serviceAddConfirmBtn').click(function() {
-    var name = $('#serviceNameAddID').val();
-    var des = $('#serviceDesAddID').val();
-    var img = $('#serviceImgAddID').val();
-    ServiceAdd(name,des,img);
+  var CourseName=$('#CourseNameId').val();
+  var CourseDes=$('#CourseDesId').val();
+  var CourseFee=$('#CourseFeeId').val();
+  var CourseEnroll=$('#CourseEnrollId').val();    
+  var CourseClass=$('#CourseClassId').val();
+  var CourseLink=$('#CourseLinkId').val();
+  var CourseImg=$('#CourseImgId').val();
+    CourseAdd(CourseName,CourseDes,CourseFee,CourseEnroll,CourseClass,CourseLink,CourseImg);
 })
-function ServiceAdd(serviceName,serviceDes,serviceImg){
-  if(serviceName.length==0){
-     toastr.error('Service Name is Empty !');
+function CourseAdd(CourseName,CourseDes,CourseFee,CourseEnroll,CourseClass,CourseLink,CourseImg){
+  if(CourseName.length==0){
+     toastr.error('Course Name is Empty !');
     }
-    else if(serviceDes.length==0){
-     toastr.error('Service Description is Empty !');
+    else if(CourseDes.length==0){
+     toastr.error('Course Description is Empty !');
     }
-    else if(serviceImg.length==0){
-      toastr.error('Service Image is Empty !');
+    else if(CourseFee.length==0){
+      toastr.error('Course Fee is Empty !');
+    }
+    else if(CourseEnroll.length==0){
+      toastr.error('Course Enroll is Empty !');
+    }
+    else if(CourseClass.length==0){
+      toastr.error('Course Class is Empty !');
+    }
+    else if(CourseLink.length==0){
+      toastr.error('Course Link is Empty !');
+    }
+    else if(CourseImg.length==0){
+      toastr.error('Course Image is Empty !');
     }
     else{
     $('#serviceAddConfirmBtn').html("<div class='spinner-border spinner-border-sm' role='status'></div>") //Animation....
-    axios.post('/ServiceAdd', {
-            name: serviceName,
-            des: serviceDes,
-            img: serviceImg,
+    axios.post('/CourseAdd', {
+            course_name: CourseName,
+            course_des: CourseDes,
+            course_fee: CourseFee,
+            course_totalenroll: CourseEnroll,
+            course_totalclass: CourseClass,
+            course_link: CourseLink,
+            course_img: CourseImg,   
         })
         .then(function(response) {
             $('#serviceAddConfirmBtn').html("Save");
@@ -321,6 +368,79 @@ function ServiceUpdate(serviceID,serviceName,serviceDes,serviceImg) {
 
 }
 
+}
+//update data send 
+$('#CourseUpdateConfirmBtn').click(function(){
+var courseID=$('#courseEditId').html();
+var  courseName=$('#CourseNameUpdateId').val();
+var  courseDes=$('#CourseDesUpdateId').val();
+var courseFee=$('#CourseFeeUpdateId').val();
+var  courseEnroll=$('#CourseEnrollUpdateId').val();
+var  courseClass=$('#CourseClassUpdateId').val();
+var courseLink=$('#CourseLinkUpdateId').val();
+var  courseImg=$('#CourseImgUpdateId').val();
+CourseUpdate(courseID,courseName,courseDes,courseFee,courseEnroll,courseClass,courseLink,courseImg);
+})
+function CourseUpdate(courseID,courseName,courseDes,courseFee,courseEnroll,courseClass,courseLink,courseImg) {
+  
+    if(courseName.length==0){
+     toastr.error('Course Name is Empty !');
+    }
+    else if(courseDes.length==0){
+     toastr.error('Course Description is Empty !');
+    }
+    else if(courseFee.length==0){
+      toastr.error('Course Fee is Empty !');
+    }
+    else if(courseEnroll.length==0){
+      toastr.error('Course Enroll is Empty !');
+    }
+    else if(courseClass.length==0){
+      toastr.error('Course Class is Empty !');
+    }
+    else if(courseLink.length==0){
+      toastr.error('Course Link is Empty !');
+    }
+    else if(courseImg.length==0){
+      toastr.error('Course Image is Empty !');
+    }
+    else{
+    $('#CourseUpdateConfirmBtn').html("<div class='spinner-border spinner-border-sm' role='status'></div>") //Animation....
+    axios.post('/CoursesUpdate', {
+            id: courseID,
+            course_name: courseName,
+            course_des: courseDes,
+            course_fee: courseFee,
+            course_totalenroll: courseEnroll,
+            course_totalclass: courseClass,  
+            course_link: courseLink,             
+            course_img: courseImg,   
+        })
+        .then(function(response) {
+            $('#CourseUpdateConfirmBtn').html("Save");
+          
+            if(response.status==200){
+              if (response.data == 0) {
+                $('#EditModal').modal('hide');
+                toastr.success('Update Success');
+                getdata();
+            } else {
+                $('#EditModal').modal('hide');
+                toastr.error('Update Fail');
+                getdata();
+            }  
+         } 
+         else{
+            $('#updateCourseModal').modal('hide');
+             toastr.error('Something Went Wrong !');
+         }   
+    })
+    .catch(function(error) {
+        $('#updateCourseModal').modal('hide');
+        toastr.error('Something Went Wrong !');
+   });
+
+}
 }
 
     </script>
