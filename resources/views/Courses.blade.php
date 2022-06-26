@@ -8,9 +8,10 @@
         <table class="table table-striped table-bordered d-none" id='mainDiv' cellspacing="0" width="100%">
             <thead>
               <tr>
-                <th class="th-sm">Image</th>
                 <th class="th-sm">Name</th>
-                <th class="th-sm">Description</th>
+                <th class="th-sm">Fee</th>
+                <th class="th-sm">Class</th>
+                <th class="th-sm">Enroll</th>
                 <th class="th-sm">Edit</th>
                 <th class="th-sm">Delete</th>
               </tr>
@@ -99,7 +100,7 @@ aria-hidden="true">
     <script>
       getdata();
       function getdata(){
-        axios.get('/getServiceData')
+        axios.get('/CoursesList')
         .then(function (response) {
           var tableTd = document.getElementById('service_table') ;
            tableTd.innerHTML = ' ' ;
@@ -109,10 +110,11 @@ aria-hidden="true">
           var jsonData = response.data;
           $.each(jsonData, function(i, item) {
                     $('<tr>').html(
-                        "<td><img class='table-img' src=" + jsonData[i].service_img + "></td>" +
-                        "<td>" + jsonData[i].service_name + "</td>" +
-                        "<td>" + jsonData[i].service_des + "</td>" +
-                        "<td id='addEditbtn'><a  class='serviceEditBtn'  data-id=" + jsonData[i].id + "><i class='fas fa-edit'></i></a></td>" +
+                        "<td>"+jsonData[i].course_name+"</td>" +
+                        "<td>"+jsonData[i].course_fee+"</td>" +
+                        "<td>"+jsonData[i].course_totalclass+"</td>" +
+                        "<td>"+jsonData[i].course_totalenroll+"</td>" +     
+                        "<td><a  class='courseEditBtn' data-id=" + jsonData[i].id + "><i class='fas fa-edit'></i></a></td>" +
                         "<td><a  class='serviceDeleteBtn'  data-id=" + jsonData[i].id +" ><i class='fas fa-trash-alt'></i></a></td>"
                     ).appendTo('#service_table');
                 });
@@ -147,7 +149,7 @@ $('#serviceDeleteConfirmBtn').click(function() {
       })
       function ServiceDelete(deleteID){
         $('#serviceDeleteConfirmBtn').html("<div class='spinner-border spinner-border-sm' role='status'></div>") 
-        axios.post('/deleteServices', {
+        axios.post('/ChourseDelete', {
             id: deleteID
         })
         .then(function(response) {

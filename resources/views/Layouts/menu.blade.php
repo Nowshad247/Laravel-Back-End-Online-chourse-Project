@@ -21,6 +21,7 @@
                     <li> <a href="/" ><span> <i class="fas fa-home"></i> </span><span class="hide-menu">Home</span></a></li>
                     <li> <a href="{{url('/analytic')}}" ><span> <i class="fas fa-users"></i> </span><span class="hide-menu">Visitor</span></a></li>
                     <li> <a href="{{url('/services')}}" ><span> <i class="fas fa-globe"></i> </span><span class="hide-menu">Services</span></a></li>
+                    <li> <a href="{{url('/CoursesAdmin')}}" ><span> <i class="far fa-envelope"></i></span><span class="hide-menu">Services</span></a></li>
                 </ul>
             </nav>
         </div>

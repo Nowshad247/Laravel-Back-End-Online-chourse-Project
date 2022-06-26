@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\VisitorModelController;
+use App\Http\Controllers\CoursesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,8 @@ Route::post('/deleteServices',[ServicesController::class, 'deleteServices']);
 Route::post('/ServiceAdd',[ServicesController::class, 'ServiceAdd']);
 Route::post('/ServiceDetails',[ServicesController::class, 'ServiceDetails']);
 Route::post('/ServiceUpdate',[ServicesController::class, 'ServiceUpdate']);
+
+//CoursesController
+Route::get('/CoursesAdmin',[CoursesController::class, 'HomeIndex']);
+Route::get('/CoursesList',[CoursesController::class, 'getCoursesData']);
+Route::post('/ChourseDelete',[CoursesController::class, 'ChourseDelete']);
