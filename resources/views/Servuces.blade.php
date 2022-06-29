@@ -101,11 +101,14 @@ aria-hidden="true">
       function getdata(){
         axios.get('/getServiceData')
         .then(function (response) {
+          $('#mainDiv').DataTable().destroy();
           var tableTd = document.getElementById('service_table') ;
            tableTd.innerHTML = ' ' ;
+          
          if(response.status == 200){
            $('#mainDiv').removeClass('d-none');
            $('#loaderDiv').addClass('d-none');
+          
           var jsonData = response.data;
           $.each(jsonData, function(i, item) {
                     $('<tr>').html(
@@ -123,6 +126,9 @@ aria-hidden="true">
                     $('#deleteModal').modal('show');
 
                 })
+                //Data Table 
+                $('#mainDiv').DataTable({order:false});
+                $('.dataTables_length').addClass('bs-select');
                 $('.serviceEditBtn').click(function(){
                   var id = $(this).data('id');
                     $('#serviceEditId').html(id);

@@ -124,11 +124,16 @@ aria-hidden="true">
       function getdata(){
         axios.get('/CoursesList')
         .then(function (response) {
+          
+          $('#mainDiv').DataTable().destroy();
           var tableTd = document.getElementById('service_table') ;
            tableTd.innerHTML = ' ' ;
+           
          if(response.status == 200){
            $('#mainDiv').removeClass('d-none');
            $('#loaderDiv').addClass('d-none');
+           
+
           var jsonData = response.data;
           $.each(jsonData, function(i, item) {
                     $('<tr>').html(
@@ -140,6 +145,11 @@ aria-hidden="true">
                         "<td><a  class='serviceDeleteBtn'  data-id=" + jsonData[i].id +" ><i class='fas fa-trash-alt'></i></a></td>"
                     ).appendTo('#service_table');
                 });
+                //Data Table 
+                $('#mainDiv').DataTable({
+        order: [[3, 'desc']],
+    });
+                $('.dataTables_length').addClass('bs-select');
                 // Services Table Delete Icon Click
                 $('.serviceDeleteBtn').click(function() {
                     var id = $(this).data('id');
