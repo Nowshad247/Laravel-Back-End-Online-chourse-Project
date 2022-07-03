@@ -159,7 +159,7 @@ aria-hidden="true">
                 })
                 $('.courseEditBtn').click(function(){
                   var id = $(this).data('id');
-                    $('#serviceEditId').html(id);
+                    $('#courseEditId').html(id);
                     CourseUpdateDetails(id);
                   $('#EditModal').modal('show');
 });
@@ -427,10 +427,10 @@ function CourseUpdate(courseID,courseName,courseDes,courseFee,courseEnroll,cours
             course_img: courseImg,   
         })
         .then(function(response) {
+          console.log(response.data);
             $('#CourseUpdateConfirmBtn').html("Save");
-          
             if(response.status==200){
-              if (response.data == 0) {
+              if (response.data == 1) {
                 $('#EditModal').modal('hide');
                 toastr.success('Update Success');
                 getdata();

@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\VisitorModelController;
 use App\Http\Controllers\CoursesController;
+use App\Http\Controllers\ProjectsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +34,10 @@ Route::post('/ChourseDelete',[CoursesController::class, 'ChourseDelete']);
 Route::post('/CourseAdd',[CoursesController::class, 'CourseAdd']);
 Route::post('/CourseDetails',[CoursesController::class, 'CourseDetails']);
 Route::post('/CoursesUpdate',[CoursesController::class, 'CoursesUpdate']);
+//Projects Controller 
+Route::get('/projectsAdmin',[ProjectsController::class, 'HomeIndex']);
+Route::get('/ProjectsList',[ProjectsController::class, 'getCoursesData']);
+Route::post('/projectsDelete',[ProjectsController::class, 'ChourseDelete']);
+Route::post('/projectsAdd',[ProjectsController::class, 'CourseAdd']);
+Route::post('/projectsDetails',[ProjectsController::class, 'CourseDetails']);
+Route::post('/projectsUpdate',[ProjectsController::class, 'CoursesUpdate']);

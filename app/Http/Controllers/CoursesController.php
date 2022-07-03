@@ -54,7 +54,7 @@ class CoursesController extends Controller
     }
 
     function CoursesUpdate(Request $req){
-     $id= $req->input('id');
+     $id=$req->input('id');
      $course_name= $req->input('course_name');
      $course_des = $req->input('course_des');
      $course_fee= $req->input('course_fee');     
@@ -62,7 +62,6 @@ class CoursesController extends Controller
      $course_totalclass= $req->input('course_totalclass'); 
      $course_link= $req->input('course_link'); 
      $course_img = $req->input('course_img'); 
-
      $result= CourseModel::where('id','=',$id)->update([
         'course_name'=>$course_name,
         'course_des'=>$course_des,
@@ -74,11 +73,12 @@ class CoursesController extends Controller
      ]);
 
      if($result==true){      
-       return 1;
+       return $result;
      }
      else{
       return 0;
      }
+ 
     }
 
 }
