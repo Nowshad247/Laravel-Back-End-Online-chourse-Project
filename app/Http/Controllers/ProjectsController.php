@@ -8,16 +8,15 @@ class ProjectsController extends Controller
 {
     function index(){
         $serviceData = ProjectsModel::all();
-        return view('Servuces',['serviceData'=>$serviceData]);
+        return view('Projects',['serviceData'=>$serviceData]);
     }
-    function getServiceData(){
+    function getProjectData(){
         $result=json_encode(ProjectsModel::orderBy('id','desc')->get());
 	    return $result;
     }
-    function deleteServices(Request $req){
+    function projectsDelete(Request $req){
         $id= $req->input('id');
         $result= ProjectsModel::where('id','=',$id)->delete();
-   
         if($result==true){      
           return 1;
         }
@@ -25,11 +24,17 @@ class ProjectsController extends Controller
             return 0;
         }
     }
-    function ServiceAdd(request $req){
-        $name = $req->input('name');
-        $des = $req->input('des');
-        $img = $req->input('img');
-        $result= ProjectsModel::insert(['service_name'=>$name,'service_des'=>$des,'service_img'=>$img]);
+    function projectsAdd(request $req){
+        $project_name= $req->input('project_name');
+        $project_desc= $req->input('project_desc');
+        $project_link= $req->input('project_link');
+        $project_img = $req->input('project_img');
+        $result= ProjectsModel::insert([
+     	'project_name'=>$project_name,
+     	'project_desc'=>$project_desc,
+     	'project_link'=>$project_link,
+        'project_img'=>$project_img,
+     ]);
      if($result==true){      
        return 1;
      }

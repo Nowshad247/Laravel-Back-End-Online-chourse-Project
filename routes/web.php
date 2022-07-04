@@ -35,9 +35,9 @@ Route::post('/CourseAdd',[CoursesController::class, 'CourseAdd']);
 Route::post('/CourseDetails',[CoursesController::class, 'CourseDetails']);
 Route::post('/CoursesUpdate',[CoursesController::class, 'CoursesUpdate']);
 //Projects Controller 
-Route::get('/projectsAdmin',[ProjectsController::class, 'HomeIndex']);
-Route::get('/ProjectsList',[ProjectsController::class, 'getCoursesData']);
-Route::post('/projectsDelete',[ProjectsController::class, 'ChourseDelete']);
-Route::post('/projectsAdd',[ProjectsController::class, 'CourseAdd']);
+Route::get('/projectsAdmin',[ProjectsController::class, 'index']);
+Route::get('/ProjectsList',[ProjectsController::class, 'getProjectData']);
+Route::post('/projectsDelete',[ProjectsController::class, 'projectsDelete']);
+Route::post('/projectsAdd',[ProjectsController::class, 'projectsAdd']);
 Route::post('/projectsDetails',[ProjectsController::class, 'CourseDetails']);
 Route::post('/projectsUpdate',[ProjectsController::class, 'CoursesUpdate']);
