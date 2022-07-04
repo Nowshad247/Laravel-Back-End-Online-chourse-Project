@@ -79,29 +79,23 @@ aria-hidden="true">
       </button>
     </div>
     <div class="modal-body p-4 text-center">
-      <h5 id="courseEditId" class="mt-4 d-none">  </h5>
-      <div id="courseEditForm" class="container d-none">
-          <div class="row">
-            <div class="col-md-6">
-            <input id="CourseNameUpdateId" type="text" id="" class="form-control mb-3" placeholder="Course Name">
-            <input id="CourseDesUpdateId" type="text" id="" class="form-control mb-3" placeholder="Course Description">
-            <input id="CourseFeeUpdateId" type="text" id="" class="form-control mb-3" placeholder="Course Fee">
-            <input id="CourseEnrollUpdateId" type="text" id="" class="form-control mb-3" placeholder="Total Enroll">
-            </div>
-            <div class="col-md-6">
-            <input id="CourseClassUpdateId" type="text" id="" class="form-control mb-3" placeholder="Total Class">      
-            <input id="CourseLinkUpdateId" type="text" id="" class="form-control mb-3" placeholder="Course Link">
-            <input id="CourseImgUpdateId" type="text" id="" class="form-control mb-3" placeholder="Course Image">
-            </div>
-          </div>
+      <h5 id="ProjectEditId" class="mt-4 d-none">  </h5>
+      <div id="ProjectEditForm" class="container d-none">
+        <div class="row">
+            <div class="col-md-12">
+            <input id="ProjectNameUpdateId" type="text" id="" class="form-control mb-3" placeholder="Project Name">
+            <input id="ProjectDesUpdateId" type="text" id="" class="form-control mb-3" placeholder="Project Description">  
+            <input id="ProjectLinkUpdateId" type="text" id="" class="form-control mb-3" placeholder="Project Link">
+            <input id="ProjectImgUpdateId" type="text" id="" class="form-control mb-3" placeholder="Project Image">
+           </div>
+         </div>
         </div>
-
-        <img id="courseEditLoader" class="loading-icon m-5" src="{{asset('images/loding.gif')}}">
+        <img class="loading-icon m-5" id='ProjectEditLoader' src="{{asset('images/loding.gif')}}">
         <h5 id="courseEditWrong" class="d-none">Something Went Wrong !</h5>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Cancel</button>
-      <button  id="CourseUpdateConfirmBtn" type="button" class="btn  btn-sm  btn-danger">Save</button>
+      <button  id="ProjectEditConfirmBtn" type="button" class="btn  btn-sm  btn-danger">Save</button>
     </div>
   </div>
 </div>
@@ -143,8 +137,8 @@ aria-hidden="true">
               })
               $('.ProjectEditBtn').click(function(){
                 var id = $(this).data('id');
-                  $('#courseEditId').html(id);
-                  CourseUpdateDetails(id);
+                  $('#ProjectEditId').html(id);
+                  ProjectUpdateDetails(id);
                 $('#EditModal').modal('show');
 });
 
@@ -201,29 +195,28 @@ $('#addNewBtnId').click(function(){
 
 
 // Services Table Edit Icon Click
-function CourseUpdateDetails(detailsID) {
-  axios.post('/CourseDetails', {
+function ProjectUpdateDetails(detailsID) {
+    
+  axios.post('/projectsDetails', {
           id: detailsID
       })
       .then(function(response) {
-        console.log(response);
-              if(response.status==200){
-                $('#courseEditForm').removeClass('d-none');
-                      $('#courseEditLoader').addClass('d-none');    
-                      var jsonData = response.data;
-                      $('#CourseNameUpdateId').val(jsonData[0].course_name);
-                      $('#CourseDesUpdateId').val(jsonData[0].course_des);
-                      $('#CourseFeeUpdateId').val(jsonData[0].course_fee);
-                      $('#CourseEnrollUpdateId').val(jsonData[0].course_totalenroll);
-                      $('#CourseClassUpdateId').val(jsonData[0].course_totalclass);
-                      $('#CourseLinkUpdateId').val(jsonData[0].course_link);
-                      $('#CourseImgUpdateId').val(jsonData[0].course_img);
-              }
-              else{
-                 $('#serviceEditLoader').addClass('d-none');
-                 $('#serviceEditWrong').removeClass('d-none');
-              }
-  })
+       
+        if(response.status==200){
+                        $('#ProjectEditForm').removeClass('d-none');
+                        $('#ProjectEditLoader').addClass('d-none');    
+                        var jsonData = response.data;
+                        $('#ProjectNameUpdateId').val(jsonData[0].project_name);
+                        $('#ProjectDesUpdateId').val(jsonData[0].project_desc);
+                        $('#ProjectLinkUpdateId').val(jsonData[0].project_link);
+                        $('#ProjectImgUpdateId').val(jsonData[0].project_img);
+                    }
+                  
+                  else{
+                      $('#ProjectEditLoader').addClass('d-none');
+                      $('#ProjectEditWrong').removeClass('d-none');
+                    }
+                  })
   .catch(function(error) {
                 $('#serviceEditLoader').addClass('d-none');
                 $('#serviceEditWrong').removeClass('d-none');
@@ -286,33 +279,38 @@ function ProjectAdd(ProjectName,ProjectDes,ProjectLink,ProjectImg){
 }
 }
 // Services Edit Modal Save Btn
-$('#serviceEditConfirmBtn').click(function() {
-  var id = $('#serviceEditId').html();
-  var name = $('#serviceNameID').val();
-  var des = $('#serviceDesID').val();
-  var img = $('#serviceImgID').val();
-  ServiceUpdate(id,name,des,img);
+$('#ProjectEditConfirmBtn').click(function() {
+    var ProjectID=$('#ProjectEditId').html();
+    var  ProjectName=$('#ProjectNameUpdateId').val();
+    var  ProjectDes=$('#ProjectDesUpdateId').val();
+    var ProjectLink=$('#ProjectLinkUpdateId').val();
+    var  ProjectImg=$('#ProjectImgUpdateId').val();
+    ProjectUpdate(ProjectID,ProjectName,ProjectDes,ProjectLink,ProjectImg);
 })
 
 
-function ServiceUpdate(serviceID,serviceName,serviceDes,serviceImg) {
+function ProjectUpdate(ProjectID,ProjectName,ProjectDes,ProjectLink,ProjectImg) {
 
-if(serviceName.length==0){
- toastr.error('Service Name is Empty !');
-}
-else if(serviceDes.length==0){
- toastr.error('Service Description is Empty !');
-}
-else if(serviceImg.length==0){
-  toastr.error('Service Image is Empty !');
-}
+    if(ProjectName.length==0){
+     toastr.error('Project Name is Empty !');
+    }
+    else if(ProjectDes.length==0){
+     toastr.error('Project Description is Empty !');
+    }
+    else if(ProjectLink.length==0){
+      toastr.error('Project Link is Empty !');
+    }
+    else if(ProjectImg.length==0){
+      toastr.error('Project Image is Empty !');
+    }
 else{
 $('#serviceEditConfirmBtn').html("<div class='spinner-border spinner-border-sm' role='status'></div>") //Animation....
-axios.post('/ServiceUpdate', {
-        id: serviceID,
-        name: serviceName,
-        des: serviceDes,
-        img: serviceImg,
+axios.post('/projectsUpdate', {
+            id: ProjectID,
+            project_name:ProjectName,
+            project_desc:ProjectDes,
+            project_link:ProjectLink,             
+            project_img:ProjectImg, 
 
     })
     .then(function(response) {
@@ -323,7 +321,6 @@ axios.post('/ServiceUpdate', {
           if (response.data == 1) {
             $('#EditModal').modal('hide');
             toastr.success('Update Success');
-
             getdata();
 
         } else {

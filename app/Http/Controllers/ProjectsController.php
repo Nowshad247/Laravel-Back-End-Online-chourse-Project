@@ -42,7 +42,7 @@ class ProjectsController extends Controller
       return 0;
      }
     }
-    function ServiceDetails(request $req){
+    function projectDetails(request $req){
         $id = $req->input('id');
         $result= json_encode(ProjectsModel::where('id','=',$id)->get());
         if($result==true){
@@ -51,12 +51,20 @@ class ProjectsController extends Controller
             return 0 ;
         }
     }
-    function ServiceUpdate(request $req){
+    function projectsUpdate(request $req){
         $id= $req->input('id');
-        $name= $req->input('name');
-        $des= $req->input('des');
-        $img= $req->input('img');
-        $result= ProjectsModel::where('id','=',$id)->update(['service_name'=>$name,'service_des'=>$des,'service_img'=>$img]);
+        $project_name= $req->input('project_name');
+        $project_desc= $req->input('project_desc');
+        $project_link= $req->input('project_link');
+        $project_img = $req->input('project_img');
+   
+        $result= ProjectsModel::where('id','=',$id)->update([
+            'project_name'=>$project_name,
+            'project_desc'=>$project_desc,
+            'project_link'=>$project_link,
+           'project_img'=>$project_img,	
+        ]);
+
         if($result == true){      
           return 1;
         }
