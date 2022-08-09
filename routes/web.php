@@ -6,6 +6,7 @@ use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\VisitorModelController;
 use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\ProjectsController;
+use App\Http\Controllers\contactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,3 +42,7 @@ Route::post('/projectsDelete',[ProjectsController::class, 'projectsDelete']);
 Route::post('/projectsAdd',[ProjectsController::class, 'projectsAdd']);
 Route::post('/projectsDetails',[ProjectsController::class, 'projectDetails']);
 Route::post('/projectsUpdate',[ProjectsController::class, 'projectsUpdate']);
+//contact list 
+Route::get('/contacts',[contactController::class, 'index']);
+Route::post('/contacts',[contactController::class, 'getAllContactInfo']);
+Route::post('/contactsDelete',[contactController::class, 'contactsDelete']);

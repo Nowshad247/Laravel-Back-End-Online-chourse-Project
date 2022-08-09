@@ -23,6 +23,7 @@
                     <li> <a href="{{url('/services')}}" ><span> <i class="fas fa-globe"></i> </span><span class="hide-menu">Services</span></a></li>
                     <li> <a href="{{url('/CoursesAdmin')}}" ><span> <i class="far fa-envelope"></i></span><span class="hide-menu">Courses</span></a></li>
                     <li> <a href="{{url('/projectsAdmin')}}" ><span> <i class="far fa-envelope"></i></span><span class="hide-menu">projectsAdmin</span></a></li>
+                    <li> <a href="{{url('/contacts')}}" ><span> <i class="far fa-envelope"></i></span><span class="hide-menu">Contact</span></a></li>
                 </ul>
             </nav>
         </div>

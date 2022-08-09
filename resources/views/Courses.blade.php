@@ -222,7 +222,6 @@ function CourseUpdateDetails(detailsID) {
             id: detailsID
         })
         .then(function(response) {
-          console.log(response);
                 if(response.status==200){
                   $('#courseEditForm').removeClass('d-none');
                         $('#courseEditLoader').addClass('d-none');    
